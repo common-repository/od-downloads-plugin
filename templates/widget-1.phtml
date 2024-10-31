@@ -1,0 +1,74 @@
+<?php
+/**
+ * Template file for widget "Soubory ke stažení".
+ *
+ * @author  Ondřej Doněk, <ondrejd@gmail.com>
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
+ * @link https://github.com/ondrejd/od-downloads-plugin for the canonical source repository
+ * @package odwp-downloads_plugin
+ * 
+ * @todo Format dates by WordPress inner function!
+ * 
+ * Used variables (initialized in {@see odwpdp_widget_1::widget()}).
+ *
+ * @var array $args
+ * @var array $instance
+ * @var array $files
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit();
+}
+
+// Starts widget
+echo $args['before_widget'];
+
+// Widget's title
+if ( ! empty( $instance['title'] ) ) {
+    echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
+}
+
+?>
+<div class="odwpdp-widget-1">
+    <?php if ( ! empty( $instance['description'] ) ) : ?>
+    <p class="description"><?php echo apply_filters( 'odwpdp-widget-description-1', $instance['description'] ); ?></p>
+    <?php endif; ?>
+    <ul class="files-list">
+        <?php foreach ( $files as $file ) :
+            $puton_date  = get_post_meta( $file->ID, 'odwpdp-metabox-1', true );
+            $puton_date  = ( ! empty( $puton_date ) ) ? date( 'j.n.Y', strtotime( $puton_date ) ) : '---';
+            $putoff_date = get_post_meta( $file->ID, 'odwpdp-metabox-2', true );
+            $putoff_date = ( ! empty( $putoff_date ) ) ? date( 'j.n.Y', strtotime( $putoff_date ) ) : '---';
+            $file_info   = odwpdp_get_file_info( $file->ID );
+            $dcount      = odwpdp_get_downloads_count( $file );
+        ?>
+        <li>
+            <span class="file-info-cont file-info-cont-small">
+                <?php if ( (bool) $instance['show_icon'] === true ) : ?>
+                <img src="<?php echo $file_info['icon_32']; ?>" class="file-icon">
+                <?php endif; ?>
+                <span class="file-info">
+                    <a href="<?php echo $file_info['url']; ?>" class="file-link">
+                        <?php echo $file->post_title; ?>
+                    </a><br>
+                    <?php if ( (bool) $instance['show_size'] === true ) : ?>
+                    <small class="file-size" title="<?php _e( 'Velikost souboru', ODWPDP_SLUG ); ?>"><?php echo $file_info['size']; ?></small>&nbsp;|&nbsp;
+                    <?php endif; ?>
+                    <?php if ( (bool) $instance['show_dates'] === true ) : ?>
+                    <small class="file-dates" title="<?php _e( 'Datum vyvěšení/sejmutí', ODWPDP_SLUG ); ?>">
+                        <?php echo $puton_date; ?>/<?php echo $putoff_date; ?>
+                    </small>
+                    <?php endif; ?>
+                    <?php if ( (bool) $instance['show_count'] === true ) : ?>&nbsp;|&nbsp;
+                    <small class="file-dcount" title="<?php _e( 'Počet stažení', ODWPDP_SLUG ); ?>"><?php echo $dcount; ?></small>
+                    <?php endif; ?>
+                </span>
+            </span>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<?php
+
+// Ends widget
+echo $args['after_widget'];

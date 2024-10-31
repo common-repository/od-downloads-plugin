@@ -1,0 +1,71 @@
+/**
+ * Styles for WP administration.
+ *
+ * @author  Ondřej Doněk, <ondrejd@gmail.com>
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
+ * @link https://github.com/ondrejd/od-downloads-plugin for the canonical source repository
+ * @package odwp-downloads_plugin
+ */
+
+/* Listing */
+.column-odwpdp_puton_column, .column-odwpdp_putoff_column {
+    width: 150px !important;
+}
+td.column-odwpdp_puton_column, td.column-odwpdp_putoff_column {
+    font-size: 90%;
+}
+.odwpdp-file-icon {
+    left: -2px;
+    position: relative;
+    top: 2px;
+}
+
+/* Date input */
+.date-input-group .day {
+	height: 32px;
+	width: 40px;
+}
+.date-input-group .month {
+	height: 32px;
+	position: relative;
+	top: -2px;
+}
+.date-input-group .year {
+	height: 32px;
+	width: 50px;
+}
+
+/* File uploader */
+.cfile-container {
+	padding: 10px;
+}
+.cfile {
+	background: #FFF;
+	border: 2px solid #ddd;
+	padding: 10px;
+}
+.cfile .cfile-info {
+	position: relative;
+}
+.cfile .cfile-info a {
+	height: 32px;
+	position: absolute;
+	right: 0;
+	text-decoration:none !important;
+	top: 0;
+}
+.cfile .nofile {
+	font-weight: bold;
+	color: #ddd;
+}
+
+/* TinyMCE icon */
+i.odwpdp_shortcode_1-icon {
+    background-image: url('../icon16.png');
+}
+
+/* Widget */
+.short-label {
+    display: inline-block;
+    width: 110px;
+}
